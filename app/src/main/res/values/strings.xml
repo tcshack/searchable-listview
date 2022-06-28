@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">SearchableListviewApp</string>
+    <string name="action_search_fruit">Search for a fruit</string>
+    <string name="fruit_details">Fruit Details</string>
+</resources>
