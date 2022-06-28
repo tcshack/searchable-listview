@@ -48,10 +48,8 @@ class FruitAdapter extends BaseAdapter implements Filterable {
     public View getView(int position, View convertView, ViewGroup parent) {
         View fruitItemView = mainActivity.getLayoutInflater().inflate(R.layout.item_fruit, null);
         TextView nameTxv = fruitItemView.findViewById(R.id.name);
-        TextView descriptionTxv = fruitItemView.findViewById(R.id.description);
 
         nameTxv.setText(filteredFruits.get(position).getName());
-        descriptionTxv.setText(filteredFruits.get(position).getDescription());
 
         fruitItemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, FruitDetailsActivity.class);
@@ -75,7 +73,7 @@ class FruitAdapter extends BaseAdapter implements Filterable {
                     String query = constraint.toString().toLowerCase(Locale.ROOT);
                     List<Fruit> resultData = new ArrayList<>();
                     for (Fruit fruit : fruits) {
-                        if (fruit.getName().toLowerCase(Locale.ROOT).contains(query) || fruit.getDescription().toLowerCase(Locale.ROOT).contains(query)) {
+                        if (fruit.getName().toLowerCase(Locale.ROOT).contains(query)) {
                             resultData.add(fruit);
                         }
                         filterResults.count = resultData.size();
