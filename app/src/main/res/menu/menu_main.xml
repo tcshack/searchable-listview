@@ -8,4 +8,9 @@
         android:icon="@drawable/ic_menu_search"
         app:actionViewClass="android.widget.SearchView"
         app:showAsAction="always" />
+    <item
+        android:id="@+id/share"
+        android:title="@string/action_search_fruit"
+        android:icon="@drawable/ic_share"
+        app:showAsAction="always" />
 </menu>

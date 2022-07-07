@@ -2,4 +2,6 @@
     <string name="app_name">SearchableListviewApp</string>
     <string name="action_search_fruit">Search for a fruit</string>
     <string name="fruit_details">Fruit Details</string>
+    <string name="share_with">Share with</string>
+    <string name="sharing_message">Hey, Download this hymn app from PlayStore\n%1$s</string>
 </resources>
