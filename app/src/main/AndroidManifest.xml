@@ -20,6 +20,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".FruitDetailsActivity" android:label="@string/fruit_details" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="@string/ad_application_id"/>
     </application>
 
 </manifest>

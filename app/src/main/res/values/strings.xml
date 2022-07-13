@@ -4,4 +4,7 @@
     <string name="fruit_details">Fruit Details</string>
     <string name="share_with">Share with</string>
     <string name="sharing_message">Hey, Download this hymn app from PlayStore\n%1$s</string>
+    <string name="interstitial_unit_id_test">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="interstitial_unit_id">ca-app-pub-4402175404337344/6005812942</string>
+    <string name="ad_application_id">ca-app-pub-4402175404337344~6369872509</string>
 </resources>

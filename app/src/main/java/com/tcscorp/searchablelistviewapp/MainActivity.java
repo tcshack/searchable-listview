@@ -1,21 +1,32 @@
 package com.tcscorp.searchablelistviewapp;
 
+import static com.tcscorp.searchablelistviewapp.FruitDetailsActivity.FRUIT_ARG;
+
+import android.content.Intent;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.tcscorp.searchablelistviewapp.databinding.ActivityMainBinding;
-
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.tcscorp.searchablelistviewapp.databinding.ActivityMainBinding;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements FruitAdapter.OnFruitItemClick {
 
     private FruitAdapter fruitAdapter;
+    private InterstitialAd mInterstitialAd;
+    private Fruit mFruit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,8 +48,52 @@ public class MainActivity extends AppCompatActivity {
             fruits.add(new Fruit(names[i], descriptions[i]));
         }
 
-        fruitAdapter = new FruitAdapter(this, fruits, this);
+        fruitAdapter = new FruitAdapter(fruits, this);
+        fruitAdapter.setOnFruitItemClickedListener(this);
         binding.listView.setAdapter(fruitAdapter);
+
+        AdRequest adRequest = new AdRequest.Builder().build();
+
+        InterstitialAd.load(this, getString(R.string.interstitial_unit_id_test), adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        mInterstitialAd = interstitialAd;
+                        attachInterstitialCallback();
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        mInterstitialAd = null;
+                    }
+                });
+
+    }
+
+    private void attachInterstitialCallback() {
+        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+            @Override
+            public void onAdClicked() {
+            }
+
+            @Override
+            public void onAdDismissedFullScreenContent() {
+                launchDetailsActivity();
+            }
+
+            @Override
+            public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                mInterstitialAd = null;
+            }
+
+            @Override
+            public void onAdImpression() {
+            }
+
+            @Override
+            public void onAdShowedFullScreenContent() {
+            }
+        });
     }
 
     @Override
@@ -70,11 +125,27 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.search_view) {
             return true;
-        } else if(id == R.id.share) {
+        } else if (id == R.id.share) {
             Util.launchSharingIntent(this);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onFruitClicked(Fruit fruit) {
+        mFruit = fruit;
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(this);
+        } else {
+            launchDetailsActivity();
+        }
+    }
+
+    private void launchDetailsActivity() {
+        Intent intent = new Intent(this, FruitDetailsActivity.class);
+        intent.putExtra(FRUIT_ARG, mFruit);
+        startActivity(intent);
     }
 }
