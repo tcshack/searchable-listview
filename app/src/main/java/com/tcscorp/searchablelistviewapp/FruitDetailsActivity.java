@@ -38,6 +38,8 @@ public class FruitDetailsActivity extends AppCompatActivity {
         }
 
         AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
+
         InterstitialAd.load(this, getString(R.string.interstitial_unit_id_test), adRequest,
                 new InterstitialAdLoadCallback() {
                     @Override

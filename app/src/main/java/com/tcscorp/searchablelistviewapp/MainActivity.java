@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements FruitAdapter.OnFr
         binding.listView.setAdapter(fruitAdapter);
 
         AdRequest adRequest = new AdRequest.Builder().build();
+        binding.adView.loadAd(adRequest);
 
         InterstitialAd.load(this, getString(R.string.interstitial_unit_id_test), adRequest,
                 new InterstitialAdLoadCallback() {
