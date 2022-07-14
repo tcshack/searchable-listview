@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fcfcfc"
     tools:context=".MainActivity">
 
     <ListView
@@ -16,7 +15,6 @@
 
     <LinearLayout
         android:id="@+id/ad_banner"
-        android:background="@android:color/white"
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="108dp"
